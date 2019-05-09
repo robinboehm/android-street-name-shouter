@@ -20,20 +20,16 @@ import java.util.Locale;
 import static android.content.ContentValues.TAG;
 
 class MyLocationListener implements LocationListener {
-    TextView main;
     Context baseContext;
     TextToSpeech textToSpeech;
 
-    public MyLocationListener(TextView main, Context baseContext, TextToSpeech textToSpeech) {
-        this.main = main;
+    public MyLocationListener(Context baseContext, TextToSpeech textToSpeech) {
         this.baseContext = baseContext;
         this.textToSpeech = textToSpeech;
     }
 
     @Override
     public void onLocationChanged(Location loc) {
-        this.main.setText("");
-        //pb.setVisibility(View.INVISIBLE);
         Toast.makeText(
                 this.baseContext,
                 "Location changed: Lat: " + loc.getLatitude() + " Lng: "
@@ -63,22 +59,18 @@ class MyLocationListener implements LocationListener {
         String s = longitude + "\n" + latitude + "\n\nMy Current City is: "
                 + cityName + "\n"
                 + addressLine;
-        this.main.setText(s);
         textToSpeech.speak(addressLine, TextToSpeech.QUEUE_FLUSH, null, "id");
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-        this.main.setText("onStatusChanged");
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        this.main.setText("onProviderEnabled");
     }
 
     @Override
     public void onProviderDisabled(String provider) {
-        this.main.setText("onProviderDisabled");
     }
 }
