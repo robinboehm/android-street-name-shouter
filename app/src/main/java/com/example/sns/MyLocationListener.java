@@ -23,6 +23,8 @@ class MyLocationListener implements LocationListener {
     Context baseContext;
     TextToSpeech textToSpeech;
 
+    String lastKnownLocation;
+
     public MyLocationListener(Context baseContext, TextToSpeech textToSpeech) {
         this.baseContext = baseContext;
         this.textToSpeech = textToSpeech;
@@ -56,10 +58,13 @@ class MyLocationListener implements LocationListener {
         catch (IOException e) {
             e.printStackTrace();
         }
-        String s = longitude + "\n" + latitude + "\n\nMy Current City is: "
-                + cityName + "\n"
+        String s = cityName + "\n"
                 + addressLine;
-        textToSpeech.speak(addressLine, TextToSpeech.QUEUE_FLUSH, null, "id");
+
+        if(this.lastKnownLocation != null && !this.lastKnownLocation.equals(addressLine)) {
+            textToSpeech.speak(addressLine, TextToSpeech.QUEUE_FLUSH, null, "id");
+        }
+        this.lastKnownLocation = addressLine;
     }
 
     @Override
