@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -19,13 +20,14 @@ import java.util.Locale;
 import static android.content.ContentValues.TAG;
 
 class MyLocationListener implements LocationListener {
-
     TextView main;
     Context baseContext;
+    TextToSpeech textToSpeech;
 
-    public MyLocationListener(TextView main, Context baseContext) {
+    public MyLocationListener(TextView main, Context baseContext, TextToSpeech textToSpeech) {
         this.main = main;
         this.baseContext = baseContext;
+        this.textToSpeech = textToSpeech;
     }
 
     @Override
@@ -62,6 +64,7 @@ class MyLocationListener implements LocationListener {
                 + cityName + "\n"
                 + addressLine;
         this.main.setText(s);
+        textToSpeech.speak(addressLine, TextToSpeech.QUEUE_ADD, null, "id");
     }
 
     @Override
