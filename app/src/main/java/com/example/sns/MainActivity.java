@@ -1,12 +1,18 @@
 package com.example.sns;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Binder;
+import android.os.Build;
+import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        startService(new Intent(this, MyService.class));
+        Intent intent = new Intent(this, MyService.class);
+        startForegroundService(intent);
+
     }
 }
