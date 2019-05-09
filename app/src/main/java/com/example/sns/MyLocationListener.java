@@ -54,7 +54,7 @@ class MyLocationListener implements LocationListener {
             if (addresses.size() > 0) {
                 System.out.println(addresses.get(0).getLocality());
                 cityName = addresses.get(0).getLocality();
-                addressLine = addresses.get(0).getAddressLine(0);
+                addressLine = addresses.get(0).getThoroughfare();
             }
         }
         catch (IOException e) {
@@ -64,7 +64,7 @@ class MyLocationListener implements LocationListener {
                 + cityName + "\n"
                 + addressLine;
         this.main.setText(s);
-        textToSpeech.speak(addressLine, TextToSpeech.QUEUE_ADD, null, "id");
+        textToSpeech.speak(addressLine, TextToSpeech.QUEUE_FLUSH, null, "id");
     }
 
     @Override
