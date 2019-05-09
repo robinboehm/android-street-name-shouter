@@ -43,6 +43,7 @@ class MyLocationListener implements LocationListener {
 
         /*------- To get city name from coordinates -------- */
         String cityName = null;
+        String addressLine = null;
         Geocoder gcd = new Geocoder(this.baseContext, Locale.getDefault());
         List<Address> addresses;
         try {
@@ -51,13 +52,15 @@ class MyLocationListener implements LocationListener {
             if (addresses.size() > 0) {
                 System.out.println(addresses.get(0).getLocality());
                 cityName = addresses.get(0).getLocality();
+                addressLine = addresses.get(0).getAddressLine(0);
             }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
         String s = longitude + "\n" + latitude + "\n\nMy Current City is: "
-                + cityName;
+                + cityName + "\n"
+                + addressLine;
         this.main.setText(s);
     }
 
